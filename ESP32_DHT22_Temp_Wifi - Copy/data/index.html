@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ESP32 DHT22</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#112233">
+</head>
+
+<body>
+    <h2>ESP32 DHT22</h2>
+    <p>
+        <span class="labels">Temp</span>
+        <span class="vars" id="temperature">%TEMPERATURE%</span>
+        <sup class="units">&deg;F</sup>
+    </p>
+    <p>
+        <span class="labels">Humidity</span>
+        <span class="vars" id="humidity">%HUMIDITY%</span>
+        <sup class="units">&percnt;</sup>
+    </p>
+    <div>
+        <span class="">Update Time</span>
+        <span id="time">%TIME%</span>
+    </div>
+</body>
+<script>
+    setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("temperature").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/temperature", true);
+        xhttp.send();
+    }, 10000);
+
+    setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("humidity").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/humidity", true);
+        xhttp.send();
+    }, 10000);
+
+    setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("time").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/time", true);
+        xhttp.send();
+    }, 10000);
+</script>
+
+</html>
